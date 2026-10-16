@@ -1,51 +1,51 @@
 .button {
-    width: 100%;
+   width: 100%;
    display: inline-flex;
-   min-height: 42px;
+   min-height: var(--control-height-md);
    align-items: center;
    justify-content: center;
-   gap: 8px;
+   gap: var(--spacing-2);
    box-sizing: border-box;
-   padding: 10px 16px;
+   padding: var(--spacing-2-5) var(--spacing-4);
 
-   border: 1px solid #18181b;
-   border-radius: 8px;
-   background-color: #18181b;
-   color: #ffffff;
+   border: var(--border-width) solid var(--color-action-primary);
+   border-radius: var(--radius-md);
+   background-color: var(--color-action-primary);
+   color: var(--color-text-on-primary);
 
    font: inherit;
-   font-size: 14px;
-   font-weight: 500;
-   line-height: 20px;
+   font-size: var(--font-size-sm);
+   font-weight: var(--font-weight-medium);
+   line-height: var(--line-height-sm);
 
    cursor: pointer;
    user-select: none;
    transition:
-      background-color 150ms ease,
-      border-color 150ms ease,
-      box-shadow 150ms ease,
-      transform 100ms ease;
+      background-color var(--duration-normal) ease,
+      border-color var(--duration-normal) ease,
+      box-shadow var(--duration-normal) ease,
+      transform var(--duration-fast) ease;
 }
 
 .button:hover:not(:disabled) {
-   border-color: #27272a;
-   background-color: #27272a;
+   border-color: var(--color-action-primary-hover);
+   background-color: var(--color-action-primary-hover);
 }
 
 .button:active:not(:disabled) {
-   transform: translateY(1px);
-   background-color: #3f3f46;
+   transform: translateY(var(--offset-pressed));
+   background-color: var(--color-action-primary-active);
 }
 
 .button:focus-visible {
    outline: none;
-   box-shadow: 0 0 0 3px rgb(24 24 27 / 18%);
+   box-shadow: var(--shadow-focus);
 }
 
 .button:disabled {
    cursor: not-allowed;
-   border-color: #d4d4d8;
-   background-color: #d4d4d8;
-   color: #71717a;
-   opacity: 0.75;
+   border-color: var(--color-action-disabled);
+   background-color: var(--color-action-disabled);
+   color: var(--color-text-disabled);
+   opacity: var(--opacity-disabled);
 }

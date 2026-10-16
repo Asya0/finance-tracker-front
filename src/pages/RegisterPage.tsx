@@ -1,4 +1,4 @@
-import AuthForm  from '@/components/domain/сredentials-form';
+import CredentialsForm  from '@/components/domain/credentials-form';
 import { registration } from '@/api/auth';
 
 export default function RegisterPage() {
@@ -7,7 +7,7 @@ export default function RegisterPage() {
    };
    return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 px-4">
-         <AuthForm
+         <CredentialsForm
             title="Регистрация"
             description="Введите ваш email для доступа к Finance Tracker"
             buttonText="Зарегистрироваться"

@@ -1,63 +1,63 @@
 .input-field {
    width: 100%;
-   min-height: 42px;
+   min-height: var(--control-height-md);
    box-sizing: border-box;
-   padding: 10px 12px;
+   padding: var(--spacing-2-5) var(--spacing-3);
 
-   border: 1px solid #d4d4d8;
-   border-radius: 8px;
+   border: var(--border-width) solid var(--color-neutral-300);
+   border-radius: var(--radius-md);
    outline: none;
 
-   background-color: #ffffff;
-   color: #18181b;
+   background-color: var(--color-white);
+   color: var(--color-neutral-950);
    font: inherit;
-   font-size: 14px;
-   line-height: 20px;
+   font-size: var(--font-size-sm);
+   line-height: var(--line-height-sm);
 
    transition:
-      border-color 150ms ease,
-      box-shadow 150ms ease,
-      background-color 150ms ease;
+      border-color var(--duration-normal) ease,
+      box-shadow var(--duration-normal) ease,
+      background-color var(--duration-normal) ease;
 }
 
 .input-field::placeholder {
-   color: #a1a1aa;
+   color: var(--color-neutral-400);
 }
 
 .input-field:hover:not(:disabled) {
-   border-color: #a1a1aa;
+   border-color: var(--color-neutral-400);
 }
 
 .input-field:focus {
-   border-color: #18181b;
-   box-shadow: 0 0 0 3px rgb(24 24 27 / 10%);
+   border-color: var(--color-neutral-950);
+   box-shadow: var(--shadow-focus);
 }
 
 .input-field:disabled {
    cursor: not-allowed;
-   background-color: #f4f4f5;
-   color: #a1a1aa;
-   opacity: 0.75;
+   background-color: var(--color-neutral-100);
+   color: var(--color-neutral-400);
+   opacity: var(--opacity-disabled);
 }
 
 .input-field[aria-invalid='true'] {
-   border-color: #ef4444;
+   border-color: var(--color-danger);
 }
 
 .input-field[aria-invalid='true']:focus {
-   box-shadow: 0 0 0 3px rgb(239 68 68 / 12%);
+   box-shadow: var(--shadow-focus-danger);
 }
 
 .input-field-wrapper {
    display: flex;
    width: 100%;
    flex-direction: column;
-   gap: 6px;
+   gap: var(--spacing-1-5);
 }
 
 .input-field-label {
-   color: #3f3f46;
-   font-size: 14px;
-   font-weight: 500;
-   line-height: 20px;
+   color: var(--color-neutral-700);
+   font-size: var(--font-size-sm);
+   font-weight: var(--font-weight-medium);
+   line-height: var(--line-height-sm);
 }
