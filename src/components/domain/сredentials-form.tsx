@@ -1,47 +1,42 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-// import { Link } from 'react-router-dom';
 
 import InputField from '@/components/ui/input';
 import Button from '@/components/ui/button';
 
-const loginSchema = z.object({
-   email: z.string().email('Введите корректный email адрес'),
-   password: z.string().min(6, 'Пароль должен быть не менее 6 символов'),
+const credentialsSchema = z.object({
+   email: z
+   .string()
+   .trim()
+   .toLowerCase()
+   .pipe(z.email({error: 'Введите корректный email адрес'})),
+
+
+   password: z
+   .string()
+   .min(6, 'Пароль должен быть не менее 6 символов')
+   .max(128, 'Пароль слишком длинный'),
 });
 
-type FormFieldProps = {
+type CredentialsFormProps = {
    title: string;
    description: string;
    buttonText: string;
 
    onSubmit: (email: string, password: string) => void;
-
-   // footerText?: string;
-   // footerLink?: string;
-   // footerLabel?: string;
 };
-export default function FormField({
-   title,
-   description,
-   buttonText,
-   // footerText,
-   // footerLink,
-   // footerLabel,
-   onSubmit,
-}: FormFieldProps) {
-   type LoginFormData = z.infer<typeof loginSchema>;
+export default function CredentialsForm({ title, description, buttonText, onSubmit }: CredentialsFormProps) {
+   type CredentialsFormData = z.infer<typeof credentialsSchema>;
 
    const {
       register,
       handleSubmit,
       formState: { errors, isSubmitting },
-   } = useForm<LoginFormData>({
-      resolver: zodResolver(loginSchema),
+   } = useForm<CredentialsFormData>({
+      resolver: zodResolver(credentialsSchema),
       mode: 'onSubmit',
-      // criteriaMode: 'all',
-      delayError: 500, // задержка для вывода ошибок, при устранении убиается моментально, задержка только на показ
+      delayError: 500,
       defaultValues: {
          email: '',
          password: '',
@@ -83,23 +78,8 @@ export default function FormField({
                </div>
 
                <Button type="submit" disabled={isSubmitting}>
-                  {/* заменить на что-то обобщенное */}
-                  {/* {isSubmitting ? 'Вход...' : 'Войти'} */}
                   {buttonText}
                </Button>
-               {/* {footerText && footerLink && (
-                  <div className="mt-4 text-center text-sm text-zinc-600">
-                     {footerText}{' '}
-                     {footerLink && footerLabel ? (
-                        <Link
-                           to={footerLink}
-                           className="font-medium text-blue-600 hover:text-blue-700 underline"
-                        >
-                           {footerLabel}
-                        </Link>
-                     ) : null}
-                  </div>
-               )} */}
             </form>
          </div>
       </>

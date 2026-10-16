@@ -1,12 +1,13 @@
 class Request {
+   private readonly BASE_URL = 'http://localhost:4000'
+
    private handleError(ok: boolean) {
       if (!ok) {
          throw new Error('Сервер ответил с ошибкой');
       }
    }
-   // паттерн Adapter
    get(path: string) {
-      return fetch(`http://localhost:4000/${path}`, {
+      return fetch(`${this.BASE_URL}/${path}`, {
          method: 'GET',
          headers: {
             'Content-Type': 'application/json',
@@ -17,9 +18,7 @@ class Request {
       });
    }
    post(path: string, payload: object) {
-      console.log('Payload for registration:', payload);
-
-      return fetch(`http://localhost:4000/${path}`, {
+      return fetch(`${this.BASE_URL}/${path}`, {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json',
@@ -32,4 +31,3 @@ class Request {
    }
 }
 export const request = new Request();
-// request.post('eded', { email: 'почта', password: 'пароль' });
