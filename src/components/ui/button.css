@@ -13,12 +13,10 @@
    background-color: var(--color-action-primary);
    color: var(--color-text-on-primary);
 
-   font: inherit;
    font-size: var(--font-size-sm);
    font-weight: var(--font-weight-medium);
    line-height: var(--line-height-sm);
 
-   cursor: pointer;
    user-select: none;
    transition:
       background-color var(--duration-normal) ease,
