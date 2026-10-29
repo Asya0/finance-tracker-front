@@ -1,26 +1,32 @@
-import Button from '../ui/button';
+import { Outlet } from 'react-router-dom';
+import Button from '../ui/button/button';
+import { useAuth } from '@/contexts/AuthContext';
+import './header.css';
 
-interface HeaderProps {
-   onOpenLogin: () => void;
-   onOpenRegister: () => void;
-}
-export function Header({ onOpenLogin, onOpenRegister }: HeaderProps) {
+export function Header() {
+   const { openLogin, openRegister } = useAuth();
    return (
-      <header className="header">
-         <div className="logo">Finance tracker</div>
+      <div className="app-layout">
+         <header className="header">
+            <div className="logo">Finance tracker</div>
 
-         <nav className="nav"></nav>
+            <nav className="nav"></nav>
 
-         <div className="auth">
-            <Button type="button" onClick={onOpenLogin}>
-               Войти
-            </Button>
-         </div>
-         <div className="auth">
-            <Button type="button" onClick={onOpenRegister}>
-               Зарегестрироваться
-            </Button>
-         </div>
-      </header>
+            <div className="auth">
+               <Button type="button" onClick={openLogin}>
+                  Войти
+               </Button>
+            </div>
+            <div className="registration">
+               <Button type="button" onClick={openRegister}>
+                  Зарегистрироваться
+               </Button>
+            </div>
+         </header>
+
+         <main className="page-content">
+            <Outlet />
+         </main>
+      </div>
    );
 }

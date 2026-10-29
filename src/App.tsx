@@ -1,20 +1,42 @@
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Header } from './components/layout/header';
-import { useState } from 'react';
+import Dashboard from './pages/Dashboard';
+import Operations from './pages/Operations';
+import ProtectedRoute from './components/ProtectedRoute';
+import LoginModal from './components/ui/modals/LoginModal';
+import RegisterModal from './components/ui/modals/RegisterModal';
 
-function App() {
-   const [isLoginOpen, setIsLoginOpen] = useState(false);
-   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-   // return <LoginPage />;
-   // return <RegisterPage />;
-
+function AppContent() {
+   const { isLoginOpen, isRegisterOpen, closeModals } = useAuth();
    return (
-      <Header
-         onOpenLogin={() => setIsLoginOpen(true)}
-         onOpenRegister={() => setIsRegisterOpen(true)}
-      />
+      <>
+         <Routes>
+            <Route element={<Header />}>
+               <Route path="/" element={<Navigate to="/dashboard" replace />} />
+               <Route path="/dashboard" element={<Dashboard />} />
+
+               <Route
+                  path="/operations"
+                  element={
+                     <ProtectedRoute>
+                        <Operations />
+                     </ProtectedRoute>
+                  }
+               />
+            </Route>
+         </Routes>
+
+         <LoginModal isOpen={isLoginOpen} onClose={closeModals} />
+         <RegisterModal isOpen={isRegisterOpen} onClose={closeModals} />
+      </>
    );
 }
 
-export default App;
+export default function App() {
+   return (
+      <AuthProvider>
+         <AppContent />
+      </AuthProvider>
+   );
+}

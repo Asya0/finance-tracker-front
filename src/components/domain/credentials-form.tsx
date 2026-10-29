@@ -2,21 +2,20 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-import InputField from '@/components/ui/input';
-import Button from '@/components/ui/button';
+import InputField from '@/components/ui/input/input';
+import Button from '@/components/ui/button/button';
 
 const credentialsSchema = z.object({
    email: z
-   .string()
-   .trim()
-   .toLowerCase()
-   .pipe(z.email({error: 'Введите корректный email адрес'})),
-
+      .string()
+      .trim()
+      .toLowerCase()
+      .pipe(z.email({ error: 'Введите корректный email адрес' })),
 
    password: z
-   .string()
-   .min(6, 'Пароль должен быть не менее 6 символов')
-   .max(128, 'Пароль слишком длинный'),
+      .string()
+      .min(6, 'Пароль должен быть не менее 6 символов')
+      .max(128, 'Пароль слишком длинный'),
 });
 
 type CredentialsFormProps = {
@@ -26,7 +25,12 @@ type CredentialsFormProps = {
 
    onSubmit: (email: string, password: string) => void;
 };
-export default function CredentialsForm({ title, description, buttonText, onSubmit }: CredentialsFormProps) {
+export default function CredentialsForm({
+   title,
+   description,
+   buttonText,
+   onSubmit,
+}: CredentialsFormProps) {
    type CredentialsFormData = z.infer<typeof credentialsSchema>;
 
    const {

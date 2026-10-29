@@ -8,5 +8,8 @@ export default defineConfig({
    plugins: [react(), tailwindcss()],
    resolve: {
       tsconfigPaths: true,
+      alias: {
+         '@': path.resolve(__dirname, './src'),
+      },
    },
 });
