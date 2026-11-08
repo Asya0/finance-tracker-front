@@ -81,7 +81,7 @@ export default function CredentialsForm({
                   )}
                </div>
 
-               <Button type="submit" disabled={isSubmitting}>
+               <Button type="submit" disabled={isSubmitting} className="mt-2">
                   {buttonText}
                </Button>
             </form>

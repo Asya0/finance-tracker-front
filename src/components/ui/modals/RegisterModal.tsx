@@ -1,8 +1,10 @@
 import CredentialsForm from '@/components/domain/credentials-form';
 import { Modal } from './Modal';
-import { registration } from '@/api/auth';
+import { useAuth } from '@/contexts/AuthContext';
+// import { registration } from '@/api/auth';
 
 function RegisterModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+   const { registration } = useAuth();
    const handleSubmit = async (email: string, password: string) => {
       try {
          await registration(email, password);

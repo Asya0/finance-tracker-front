@@ -7,6 +7,7 @@
    gap: var(--spacing-2);
    box-sizing: border-box;
    padding: var(--spacing-2-5) var(--spacing-4);
+   cursor: pointer;
 
    border: var(--border-width) solid var(--color-action-primary);
    border-radius: var(--radius-md);
@@ -46,4 +47,36 @@
    background-color: var(--color-action-disabled);
    color: var(--color-text-disabled);
    opacity: var(--opacity-disabled);
+}
+
+/* ---------------- */
+
+/* Основная кнопка — прежний вид */
+.button--primary {
+   border-color: var(--color-action-primary);
+   background-color: var(--color-action-primary);
+   color: var(--color-text-on-primary);
+}
+
+/* Вторичная: прозрачная, но с рамкой — для «Зарегистрироваться» или «Выйти» */
+.button--secondary {
+   border-color: var(--color-neutral-300);
+   background-color: transparent;
+   color: var(--color-neutral-800);
+}
+
+.button--secondary:hover:not(:disabled) {
+   border-color: var(--color-neutral-400);
+   background-color: var(--color-neutral-100);
+}
+
+/* Текстовая: вообще без рамки и фона — для «Войти» */
+.button--ghost {
+   border-color: transparent;
+   background-color: transparent;
+   color: var(--color-neutral-800);
+}
+
+.button--ghost:hover:not(:disabled) {
+   background-color: var(--color-neutral-100);
 }

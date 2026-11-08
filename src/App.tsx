@@ -6,6 +6,7 @@ import Operations from './pages/Operations';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginModal from './components/ui/modals/LoginModal';
 import RegisterModal from './components/ui/modals/RegisterModal';
+import Profile from './pages/Profile';
 
 function AppContent() {
    const { isLoginOpen, isRegisterOpen, closeModals } = useAuth();
@@ -21,6 +22,14 @@ function AppContent() {
                   element={
                      <ProtectedRoute>
                         <Operations />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/profile"
+                  element={
+                     <ProtectedRoute>
+                        <Profile />
                      </ProtectedRoute>
                   }
                />

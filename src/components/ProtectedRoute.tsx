@@ -1,11 +1,17 @@
 import { useAuth } from '@/contexts/AuthContext';
+import { useEffect } from 'react';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-   const { user, openLogin } = useAuth();
+   const { isAuthenticated, openLogin } = useAuth();
 
-   if (!user) {
-      openLogin(); // если пользователя нет - открывам модалку входа
-      return null; // ничего не рендерим пока не авторизуются
+   useEffect(() => {
+      if (!isAuthenticated) {
+         openLogin();
+      }
+   }, [isAuthenticated, openLogin]);
+
+   if (!isAuthenticated) {
+      return null;
    }
    return <>{children}</>;
 };

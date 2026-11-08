@@ -1,19 +1,26 @@
 import type { ComponentProps } from 'react';
 import './button.css';
 
-type ButtonProps = ComponentProps<'button'>;
+type ButtonVariant = 'primary' | 'secondary' | 'ghost';
+
+interface VariantProps {
+   variant?: ButtonVariant;
+}
+
+type ButtonProps = ComponentProps<'button'> & VariantProps;
 
 export default function Button({
    children,
    className,
    type = 'button',
+   variant = 'primary',
    ...buttonProps
 }: ButtonProps) {
+   const variantClass = `button--${variant}`;
+
    return (
-      <div className="input-field-wrapper">
-         <button type={type} className={`button cursor-pointer ${className}`} {...buttonProps}>
-            {children}
-         </button>
-      </div>
+      <button type={type} className={`button ${variantClass} ${className ?? ''}`} {...buttonProps}>
+         {children}
+      </button>
    );
 }
