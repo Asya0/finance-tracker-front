@@ -8,8 +8,8 @@ type InputFieldProps = ComponentProps<'input'> & {
 export default function InputField({ label, ...inputProps }: InputFieldProps) {
    return (
       <div className="input-field-wrapper">
-         {label && <label className="input-field-label">{label}</label>}
-         <input className="input-field" {...inputProps} />
+         {label && <label className=" text-sm">{label}</label>}
+         <input className="input-field text-sm font-medium leading-[20px]" {...inputProps} />
       </div>
    );
 }

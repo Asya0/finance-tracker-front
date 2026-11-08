@@ -11,7 +11,7 @@ export default function Button({
 }: ButtonProps) {
    return (
       <div className="input-field-wrapper">
-         <button type={type} className={`button cursor-pointer ${className}`} {...buttonProps}>
+         <button type={type} className={`button cursor-pointer text-sm font-medium leading-[20px] ${className}`} {...buttonProps}>
             {children}
          </button>
       </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import './modal.css';
+import Button from '../button/button';
 
 interface ModalProps {
    isOpen: boolean;
@@ -15,9 +16,9 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
       <div className="modal" onClick={(e) => e.target === e.currentTarget && onClose()}>
          <div className="container">
             <h2 className="title">{title}</h2>
-            <button onClick={onClose} className="button">
+            <Button onClick={onClose} className="button text-[1.2rem]">
                ×
-            </button>
+            </Button>
             {children}
          </div>
       </div>
