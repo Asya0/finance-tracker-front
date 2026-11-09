@@ -1,40 +1,87 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { login as apiLogin, registration as apiRegistration } from '../api/auth';
+
+type AuthModal = 'login' | 'register' | null;
+
+interface User {
+   id: string;
+   email: string;
+   name?: string;
+}
 
 interface AuthContextType {
-   user: any | null; // почему any?
-   isLoginOpen: boolean;
-   isRegisterOpen: boolean;
-   openLogin: () => void; // в чем отличие от isLoginOpen?
-   openRegister: () => void;
-   closeModals: () => void;
+   user: User | null;
+   isAuthenticated: boolean;
+   activeModal: AuthModal;
+   openModal: (modal: Exclude<AuthModal, null>) => void;
+   closeModal: () => void;
+   login: (email: string, password: string) => Promise<void>;
+   registration: (email: string, password: string) => Promise<void>;
+   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-   const [user, setUser] = useState<any | null>(null); // что значит этот формат записи - <any | null>(null)?
-   const [isLoginOpen, setIsLoginOpen] = useState(false);
-   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+   const [user, setUser] = useState<User | null>(null);
+   const [isAuthenticated, setIsAuthenticated] = useState(false);
+   const [activeModal, setActiveModal] = useState<AuthModal>(null);
 
-   const openLogin = () => {
-      setIsRegisterOpen(false);
-      setIsLoginOpen(true);
-   };
-   const openRegister = () => {
-      setIsLoginOpen(false);
-      setIsRegisterOpen(true);
-   };
-   const closeModals = () => {
-      setIsRegisterOpen(false);
-      setIsLoginOpen(false);
-   };
-   return (
-      <AuthContext.Provider
-         value={{ user, isLoginOpen, isRegisterOpen, openLogin, openRegister, closeModals }}
-      >
-         {children}
-      </AuthContext.Provider>
+   const navigate = useNavigate();
+
+   const openModal = useCallback((modal: Exclude<AuthModal, null>) => {
+      setActiveModal(modal);
+   }, []);
+   const closeModal = useCallback(() => setActiveModal(null), []);
+
+   const login = useCallback(async (email: string, password: string) => {
+      try {
+         const response = await apiLogin(email, password);
+
+         setUser(response.user);
+         setIsAuthenticated(true);
+
+         closeModal();
+      } catch (error) {
+         console.error('Ошибка входа:', error);
+      }
+   }, []);
+   const registration = useCallback(async (email: string, password: string) => {
+      try {
+         const response = await apiRegistration(email, password);
+
+         setUser(response.user);
+         setIsAuthenticated(true);
+
+         closeModal();
+      } catch (error) {
+         console.error('Ошибка входа:', error);
+      }
+   }, []);
+
+   const logout = useCallback(() => {
+      setUser(null);
+      setIsAuthenticated(false);
+      closeModal();
+      navigate('/');
+   }, [closeModal, navigate]);
+
+   const value = useMemo(
+      () => ({
+         user,
+         isAuthenticated,
+         activeModal,
+         openModal,
+         closeModal,
+         login,
+         registration,
+         logout,
+      }),
+      [user, isAuthenticated, activeModal, openModal, closeModal, login, registration, logout],
    );
+
+   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 export const useAuth = () => {
    const context = useContext(AuthContext);
