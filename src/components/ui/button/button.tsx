@@ -16,7 +16,6 @@ export default function Button({
    variant = 'primary',
    ...buttonProps
 }: ButtonProps) {
-   const variantClass = `button--${variant}`;
 
    return (
       <div className="input-field-wrapper">

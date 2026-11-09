@@ -2,13 +2,13 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useEffect } from 'react';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-   const { isAuthenticated, openLogin } = useAuth();
+   const { isAuthenticated, openModal, activeModal } = useAuth();
 
    useEffect(() => {
-      if (!isAuthenticated) {
-         openLogin();
-      }
-   }, [isAuthenticated, openLogin]);
+      if (!isAuthenticated && activeModal === null) {
+         openModal('login');
+      } 
+   }, [isAuthenticated, openModal, activeModal]);
 
    if (!isAuthenticated) {
       return null;

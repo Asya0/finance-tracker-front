@@ -1,6 +1,8 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login as apiLogin, registration as apiRegistration } from '../api/auth';
+
+type AuthModal = 'login' | 'register' | null;
 
 interface User {
    id: string;
@@ -10,15 +12,13 @@ interface User {
 
 interface AuthContextType {
    user: User | null;
-   isLoginOpen: boolean;
-   isRegisterOpen: boolean;
-   openLogin: () => void;
-   openRegister: () => void;
-   closeModals: () => void;
+   isAuthenticated: boolean;
+   activeModal: AuthModal;
+   openModal: (modal: Exclude<AuthModal, null>) => void;
+   closeModal: () => void;
    login: (email: string, password: string) => Promise<void>;
    registration: (email: string, password: string) => Promise<void>;
    logout: () => void;
-   isAuthenticated: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -26,77 +26,62 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
    const [user, setUser] = useState<User | null>(null);
    const [isAuthenticated, setIsAuthenticated] = useState(false);
-   const [isLoginOpen, setIsLoginOpen] = useState(false);
-   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+   const [activeModal, setActiveModal] = useState<AuthModal>(null);
 
    const navigate = useNavigate();
 
-   const openLogin = () => {
-      setIsRegisterOpen(false);
-      setIsLoginOpen(true);
-   };
-   const openRegister = () => {
-      setIsLoginOpen(false);
-      setIsRegisterOpen(true);
-   };
-   const closeModals = () => {
-      setIsRegisterOpen(false);
-      setIsLoginOpen(false);
-   };
+   const openModal = useCallback((modal: Exclude<AuthModal, null>) => {
+      setActiveModal(modal);
+   }, []);
+   const closeModal = useCallback(() => setActiveModal(null), []);
 
-   const login = async (email: string, password: string) => {
+   const login = useCallback(async (email: string, password: string) => {
       try {
          const response = await apiLogin(email, password);
 
          setUser(response.user);
          setIsAuthenticated(true);
 
-         closeModals();
-         navigate('/dashboard');
+         closeModal();
       } catch (error) {
          console.error('Ошибка входа:', error);
       }
-   };
-
-   const registration = async (email: string, password: string) => {
+   }, []);
+   const registration = useCallback(async (email: string, password: string) => {
       try {
          const response = await apiRegistration(email, password);
 
          setUser(response.user);
          setIsAuthenticated(true);
 
-         closeModals();
-         navigate('/dashboard');
+         closeModal();
       } catch (error) {
          console.error('Ошибка входа:', error);
       }
-   };
+   }, []);
 
-   const logout = () => {
+   const logout = useCallback(() => {
       setUser(null);
       setIsAuthenticated(false);
-      closeModals();
+      closeModal();
       navigate('/');
-   };
+   }, [closeModal, navigate]);
 
-   return (
-      <AuthContext.Provider
-         value={{
-            user,
-            isLoginOpen,
-            isRegisterOpen,
-            openLogin,
-            openRegister,
-            closeModals,
-            login,
-            registration,
-            logout,
-            isAuthenticated,
-         }}
-      >
-         {children}
-      </AuthContext.Provider>
+   const value = useMemo(
+      () => ({
+         user,
+         isAuthenticated,
+         activeModal,
+         openModal,
+         closeModal,
+         login,
+         registration,
+         logout,
+      }),
+      [user, isAuthenticated, activeModal, openModal, closeModal, login, registration, logout],
    );
+
+   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 export const useAuth = () => {
    const context = useContext(AuthContext);

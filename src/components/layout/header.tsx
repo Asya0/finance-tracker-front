@@ -1,47 +1,4 @@
-// import { Outlet, Link } from 'react-router-dom';
-// import Button from '../ui/button/button';
-// import { useAuth } from '@/contexts/AuthContext';
-// import './header.css';
-
-// export function Header() {
-//    const { openLogin, openRegister } = useAuth();
-//    return (
-//       <div className="app-layout">
-//          <header className="header">
-//             <div className="logo">Finance tracker</div>
-
-//             <nav className="nav">
-//                <Link to="/dashboard" className="nav-link">
-//                   Главная
-//                </Link>
-//                <Link to="/operations" className="nav-link">
-//                   Операции
-//                </Link>
-//                <Link to="/profile" className="nav-link">
-//                   Профиль
-//                </Link>
-//             </nav>
-
-//             <div className="auth">
-//                <Button type="button" onClick={openLogin}>
-//                   Войти
-//                </Button>
-//             </div>
-//             <div className="registration">
-//                <Button type="button" onClick={openRegister}>
-//                   Зарегистрироваться
-//                </Button>
-//             </div>
-//          </header>
-
-//          <main className="page-content">
-//             <Outlet />
-//          </main>
-//       </div>
-//    );
-// }
-
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink } from 'react-router-dom';
 import Button from '../ui/button/button';
 import { useAuth } from '@/contexts/AuthContext';
 import './header.css';
@@ -53,7 +10,7 @@ const NAV_ITEMS = [
 ];
 
 export function Header() {
-   const { openLogin, openRegister, isAuthenticated, user, logout } = useAuth();
+   const { openModal, isAuthenticated, user, logout } = useAuth();
 
    return (
       <div className="app-layout">
@@ -84,11 +41,8 @@ export function Header() {
                   </div>
                ) : (
                   <div className="auth-buttons">
-                     <Button variant="primary" onClick={openLogin}>
+                     <Button variant="primary" onClick={() => openModal('login')}>
                         Войти
-                     </Button>
-                     <Button variant="primary" onClick={openRegister}>
-                        Зарегистрироваться
                      </Button>
                   </div>
                )}

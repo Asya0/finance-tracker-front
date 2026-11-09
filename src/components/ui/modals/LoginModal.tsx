@@ -3,7 +3,8 @@ import { Modal } from './Modal';
 import { useAuth } from '@/contexts/AuthContext';
 
 function LoginModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-   const { login } = useAuth();
+   const { login, openModal } = useAuth();
+
    const handleSubmit = async (email: string, password: string) => {
       try {
          await login(email, password);
@@ -18,7 +19,10 @@ function LoginModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
             title="Вход в систему"
             description="Введите ваш email для доступа к Finance Tracker"
             buttonText="Войти"
+            question="Нет аккаунта?"
+            actionText="Зарегистрироваться"
             onSubmit={handleSubmit}
+            onSwitch={() => {openModal('register')}}
          />
       </Modal>
    );

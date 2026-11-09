@@ -9,7 +9,7 @@ import RegisterModal from './components/ui/modals/RegisterModal';
 import Profile from './pages/Profile';
 
 function AppContent() {
-   const { isLoginOpen, isRegisterOpen, closeModals } = useAuth();
+   const { activeModal, closeModal } = useAuth();
    return (
       <>
          <Routes>
@@ -36,8 +36,8 @@ function AppContent() {
             </Route>
          </Routes>
 
-         <LoginModal isOpen={isLoginOpen} onClose={closeModals} />
-         <RegisterModal isOpen={isRegisterOpen} onClose={closeModals} />
+         <LoginModal isOpen={activeModal === 'login'} onClose={closeModal} />
+         <RegisterModal isOpen={activeModal === 'register'} onClose={closeModal} />
       </>
    );
 }

@@ -45,16 +45,12 @@
    opacity: var(--opacity-disabled);
 }
 
-/* ---------------- */
-
-/* Основная кнопка — прежний вид */
 .button--primary {
    border-color: var(--color-action-primary);
    background-color: var(--color-action-primary);
    color: var(--color-text-on-primary);
 }
 
-/* Вторичная: прозрачная, но с рамкой — для «Зарегистрироваться» или «Выйти» */
 .button--secondary {
    border-color: var(--color-neutral-300);
    background-color: transparent;
@@ -66,7 +62,6 @@
    background-color: var(--color-neutral-100);
 }
 
-/* Текстовая: вообще без рамки и фона — для «Войти» */
 .button--ghost {
    border-color: transparent;
    background-color: transparent;

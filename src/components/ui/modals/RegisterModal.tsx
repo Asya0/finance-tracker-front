@@ -1,10 +1,10 @@
 import CredentialsForm from '@/components/domain/credentials-form';
 import { Modal } from './Modal';
 import { useAuth } from '@/contexts/AuthContext';
-// import { registration } from '@/api/auth';
 
 function RegisterModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-   const { registration } = useAuth();
+   const { registration, openModal } = useAuth();
+
    const handleSubmit = async (email: string, password: string) => {
       try {
          await registration(email, password);
@@ -15,12 +15,15 @@ function RegisterModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
    };
 
    return (
-      <Modal isOpen={isOpen} onClose={onClose} title="Регистрация">
+      <Modal isOpen={isOpen} onClose={onClose}>
          <CredentialsForm
             title="Регистрация"
             description="Создайте аккаунт для доступа к Finance Tracker"
             buttonText="Зарегистрироваться"
+            question="Уже есть аккаунта?"
+            actionText="Войти"
             onSubmit={handleSubmit}
+            onSwitch={() => {openModal('login')}}
          />
       </Modal>
    );
