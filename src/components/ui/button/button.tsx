@@ -19,8 +19,10 @@ export default function Button({
    const variantClass = `button--${variant}`;
 
    return (
-      <button type={type} className={`button ${variantClass} ${className ?? ''}`} {...buttonProps}>
-         {children}
-      </button>
+      <div className="input-field-wrapper">
+         <button type={type} className={`button cursor-pointer text-sm font-medium leading-[20px] ${className}`} {...buttonProps}>
+            {children}
+         </button>
+      </div>
    );
 }
