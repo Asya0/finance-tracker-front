@@ -12,7 +12,7 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
    if (!isOpen) return null;
 
    return (
-      <div className="modal" onClick={(e) => e.target === e.currentTarget && onClose()}>
+      <div className="modal fixed flex items-center justify-center" onClick={(e) => e.target === e.currentTarget && onClose()}>
          <div className="container">
             <CloseButton onClick={onClose} />
             {children}
