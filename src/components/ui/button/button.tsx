@@ -1,26 +1,44 @@
 import type { ComponentProps } from 'react';
 import './button.css';
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost';
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'close';
+type ButtonSize = 'small' | 'medium' | 'large';
 
-interface VariantProps {
-   variant?: ButtonVariant;
-}
-
-type ButtonProps = ComponentProps<'button'> & VariantProps;
+type ButtonProps = ComponentProps<'button'> & {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+};
 
 export default function Button({
    children,
    className,
    type = 'button',
    variant = 'primary',
+   size = 'medium',
+   disabled = false,
    ...buttonProps
 }: ButtonProps) {
 
+   const isClose = variant === 'close';
+
+   const buttonClasses = [
+      'btn',
+      `btn--${variant}`,
+      `btn--${size}`,
+      className
+   ]
+   .filter(Boolean)
+   .join(' ')
+
    return (
       <div className="input-field-wrapper">
-         <button type={type} className={`button cursor-pointer text-sm font-medium leading-[20px] ${className}`} {...buttonProps}>
-            {children}
+         <button 
+         {...buttonProps}
+         type={type} 
+         className={buttonClasses}
+         aria-label={isClose ? 'Закрыть' : undefined} 
+         >
+            {isClose ? (children || 'x') : children}
          </button>
       </div>
    );
