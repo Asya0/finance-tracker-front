@@ -1,7 +1,8 @@
+import { useAuth } from '@/contexts/AuthContext';
 import CredentialsForm  from '../components/domain/credentials-form';
-import { login } from '@/api/auth';
 
 export default function LoginPage() {
+   const { login, openModal } = useAuth();
    const onSubmit = (email: string, password: string) => {
       login(email, password);
    };
@@ -12,6 +13,9 @@ export default function LoginPage() {
             description="Введите ваш email для доступа к Finance Tracker"
             buttonText="Войти"
             onSubmit={onSubmit}
+            question="Нет аккаунта?"
+            actionText="Зарегистрироваться"
+            onSwitch={() => {openModal('register')}}
          />
       </div>
    );

@@ -7,6 +7,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import LoginModal from './components/ui/modals/LoginModal';
 import RegisterModal from './components/ui/modals/RegisterModal';
 import Profile from './pages/Profile';
+import { Toaster } from 'sonner';
 
 function AppContent() {
    const { activeModal, closeModal } = useAuth();
@@ -35,6 +36,8 @@ function AppContent() {
                />
             </Route>
          </Routes>
+
+                  <Toaster position='top-right' richColors/>
 
          <LoginModal isOpen={activeModal === 'login'} onClose={closeModal} />
          <RegisterModal isOpen={activeModal === 'register'} onClose={closeModal} />

@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login as apiLogin, registration as apiRegistration } from '../api/auth';
+import { toast } from 'sonner';
 
 type AuthModal = 'login' | 'register' | null;
 
@@ -35,18 +36,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
    }, []);
    const closeModal = useCallback(() => setActiveModal(null), []);
 
-   const login = useCallback(async (email: string, password: string) => {
-      try {
-         const response = await apiLogin(email, password);
+   const login = useCallback(
+      async (email: string, password: string) => {
+         try {
+            const response = await apiLogin(email, password);
 
-         setUser(response.user);
-         setIsAuthenticated(true);
+            setUser(response.user);
+            setIsAuthenticated(true);
 
-         closeModal();
-      } catch (error) {
-         console.error('Ошибка входа:', error);
-      }
-   }, []);
+            closeModal();
+         } catch (error) {
+            console.error('Ошибка входа:', error);
+            toast.error('Не удалось войти. Попробуйте еще раз');
+         }
+      },
+      [closeModal],
+   );
    const registration = useCallback(async (email: string, password: string) => {
       try {
          const response = await apiRegistration(email, password);
@@ -57,6 +62,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
          closeModal();
       } catch (error) {
          console.error('Ошибка входа:', error);
+         toast.error('Не удалось зарегистрироваться. Попробуйте еще раз');
       }
    }, []);
 

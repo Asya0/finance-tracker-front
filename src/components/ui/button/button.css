@@ -63,3 +63,30 @@
 .button--ghost:hover:not(:disabled) {
    background-color: var(--color-neutral-100);
 }
+
+.button--close {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+
+   height: 32px;
+   width: 32px;
+   min-height: 0;
+   padding: 0;
+
+   border-color: transparent;
+   border-radius: 50%;
+   background-color: transparent;
+   color: var(--color-neutral-600);
+   cursor: pointer;
+}
+
+.button--close:hover:not(:disabled) {
+   border-color: transparent;
+   /* color: var(--color-neutral-100); */
+   background-color: var(--color-neutral-100);
+}
+
+.button--close:active:not(:disabled) {
+   background-color: var(--color-neutral-100);
+}

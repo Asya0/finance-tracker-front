@@ -1,5 +1,5 @@
 import React from 'react';
-import CloseButton from '../closeButton/closeButton';
+import Button from '../button/button';
 
 interface ModalProps {
    isOpen: boolean;
@@ -13,9 +13,10 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
    return (
       <div className="fixed flex items-center justify-center inset-0 z-[1000] bg-black/50" onClick={(e) => e.target === e.currentTarget && onClose()}>
          <div className="bg-white relative w-[400px] rounded-[8px] p-8">
-            <CloseButton onClick={onClose} />
+            <Button variant='close' className='absolute top-2 right-2' onClick={onClose} />
             {children}
          </div>
       </div>
    );
 }
+

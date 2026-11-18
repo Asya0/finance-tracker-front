@@ -5,8 +5,8 @@ type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'close';
 type ButtonSize = 'small' | 'medium' | 'large';
 
 type ButtonProps = ComponentProps<'button'> & {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
+   variant?: ButtonVariant;
+   size?: ButtonSize;
 };
 
 export default function Button({
@@ -18,28 +18,37 @@ export default function Button({
    disabled = false,
    ...buttonProps
 }: ButtonProps) {
-
    const isClose = variant === 'close';
 
-   const buttonClasses = [
-      'btn',
-      `btn--${variant}`,
-      `btn--${size}`,
-      className
-   ]
-   .filter(Boolean)
-   .join(' ')
+   const buttonClasses = ['button', `button--${variant}`, `button--${size}`, className]
+      .filter(Boolean)
+      .join(' ');
 
    return (
-      <div className="input-field-wrapper">
-         <button 
+      <button
          {...buttonProps}
-         type={type} 
-         className={buttonClasses}
-         aria-label={isClose ? 'Закрыть' : undefined} 
-         >
-            {isClose ? (children || 'x') : children}
-         </button>
-      </div>
+         type={type}
+         className={`${buttonClasses} cursor-pointer`}
+         disabled={disabled}
+         aria-label={isClose ? 'Закрыть' : undefined}
+      >
+         {isClose ? (
+            <svg
+               width="20"
+               height="20"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               strokeWidth="2"
+               strokeLinecap="round"
+               aria-hidden="true"
+            >
+               <path d="M18 6 6 18" />
+               <path d="m6 6 12 12" />
+            </svg>
+         ) : (
+            children
+         )}
+      </button>
    );
 }

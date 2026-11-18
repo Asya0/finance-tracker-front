@@ -35,7 +35,7 @@ export function Header() {
                {isAuthenticated && user ? (
                   <div className="auth-section">
                      <span className="user-name">{user.name ?? user.email}</span>
-                     <Button variant="secondary" onClick={logout}>
+                     <Button variant="primary" onClick={logout}>
                         Выйти
                      </Button>
                   </div>
