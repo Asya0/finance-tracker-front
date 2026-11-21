@@ -6,9 +6,11 @@ import Operations from './pages/Operations';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginModal from './components/ui/modals/LoginModal';
 import RegisterModal from './components/ui/modals/RegisterModal';
+import Profile from './pages/Profile';
+import { Toaster } from 'sonner';
 
-function AppContent() {
-   const { isLoginOpen, isRegisterOpen, closeModals } = useAuth();
+const AppContent = () => {
+   const { activeModal, closeModal } = useAuth();
    return (
       <>
          <Routes>
@@ -24,19 +26,29 @@ function AppContent() {
                      </ProtectedRoute>
                   }
                />
+               <Route
+                  path="/profile"
+                  element={
+                     <ProtectedRoute>
+                        <Profile />
+                     </ProtectedRoute>
+                  }
+               />
             </Route>
          </Routes>
 
-         <LoginModal isOpen={isLoginOpen} onClose={closeModals} />
-         <RegisterModal isOpen={isRegisterOpen} onClose={closeModals} />
+         <Toaster position="top-right" richColors />
+
+         <LoginModal isOpen={activeModal === 'login'} onClose={closeModal} />
+         <RegisterModal isOpen={activeModal === 'register'} onClose={closeModal} />
       </>
    );
-}
+};
 
-export default function App() {
+export const App = () => {
    return (
       <AuthProvider>
          <AppContent />
       </AuthProvider>
    );
-}
+};

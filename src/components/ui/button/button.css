@@ -1,19 +1,12 @@
 .button {
-   width: 100%;
-   display: inline-flex;
    min-height: var(--control-height-md);
-   align-items: center;
-   justify-content: center;
    gap: var(--spacing-2);
-   box-sizing: border-box;
    padding: var(--spacing-2-5) var(--spacing-4);
 
    border: var(--border-width) solid var(--color-action-primary);
    border-radius: var(--radius-md);
    background-color: var(--color-action-primary);
    color: var(--color-text-on-primary);
-
-   user-select: none;
    transition:
       background-color var(--duration-normal) ease,
       border-color var(--duration-normal) ease,
@@ -42,4 +35,57 @@
    background-color: var(--color-action-disabled);
    color: var(--color-text-disabled);
    opacity: var(--opacity-disabled);
+}
+
+.button--primary {
+   border-color: var(--color-action-primary);
+   background-color: var(--color-action-primary);
+   color: var(--color-text-on-primary);
+}
+
+.button--secondary {
+   border-color: var(--color-neutral-300);
+   background-color: transparent;
+   color: var(--color-neutral-800);
+}
+
+.button--secondary:hover:not(:disabled) {
+   border-color: var(--color-neutral-400);
+   background-color: var(--color-neutral-100);
+}
+
+.button--ghost {
+   border-color: transparent;
+   background-color: transparent;
+   color: var(--color-neutral-800);
+}
+
+.button--ghost:hover:not(:disabled) {
+   background-color: var(--color-neutral-100);
+}
+
+.button--close {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+
+   height: 32px;
+   width: 32px;
+   min-height: 0;
+   padding: 0;
+
+   border-color: transparent;
+   border-radius: 50%;
+   background-color: transparent;
+   color: var(--color-neutral-600);
+   cursor: pointer;
+}
+
+.button--close:hover:not(:disabled) {
+   border-color: transparent;
+   background-color: var(--color-neutral-100);
+}
+
+.button--close:active:not(:disabled) {
+   background-color: var(--color-neutral-100);
 }

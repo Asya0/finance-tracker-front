@@ -15,14 +15,12 @@
       "allowArbitraryExtensions": true,
       "skipLibCheck": true,
 
-      /* Bundler mode */
       "moduleResolution": "bundler",
       "allowImportingTsExtensions": true,
       "verbatimModuleSyntax": true,
       "moduleDetection": "force",
       "jsx": "react-jsx",
 
-      /* Linting */
       "noUnusedLocals": true,
       "noUnusedParameters": true,
       "erasableSyntaxOnly": true,

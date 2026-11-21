@@ -22,15 +22,21 @@ type CredentialsFormProps = {
    title: string;
    description: string;
    buttonText: string;
+   question: string;
+   actionText: string;
 
    onSubmit: (email: string, password: string) => void;
+   onSwitch: () => void;
 };
-export default function CredentialsForm({
+export const CredentialsForm = ({
    title,
    description,
    buttonText,
+   question,
+   actionText,
    onSubmit,
-}: CredentialsFormProps) {
+   onSwitch,
+}: CredentialsFormProps) => {
    type CredentialsFormData = z.infer<typeof credentialsSchema>;
 
    const {
@@ -49,7 +55,7 @@ export default function CredentialsForm({
 
    return (
       <>
-         <div className="w-full max-w-md space-y-6 rounded-2xl bg-white p-8 shadow-sm border border-zinc-100">
+         <div className="w-full max-w-md space-y-4 rounded-2xl bg-white p-8 shadow-sm border border-zinc-100">
             <div className="space-y-2 text-center">
                <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
                <p className="text-sm text-zinc-500">{description}</p>
@@ -81,11 +87,29 @@ export default function CredentialsForm({
                   )}
                </div>
 
-               <Button type="submit" disabled={isSubmitting}>
+               <Button
+                  type="submit"
+                  variant="primary"
+                  disabled={isSubmitting}
+                  className="mt-2 w-full"
+               >
                   {buttonText}
                </Button>
+
+               {onSwitch && (
+                  <p className="text-center text-sm text-zinc-500">
+                     {question}{' '}
+                     <button
+                        type="button"
+                        onClick={onSwitch}
+                        className="cursor-pointer font-medium text-zinc-900 underline-offset-2 hover:underline"
+                     >
+                        {actionText}
+                     </button>
+                  </p>
+               )}
             </form>
          </div>
       </>
    );
-}
+};

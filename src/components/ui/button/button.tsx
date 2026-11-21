@@ -1,19 +1,54 @@
 import type { ComponentProps } from 'react';
 import './button.css';
 
-type ButtonProps = ComponentProps<'button'>;
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'close';
+type ButtonSize = 'small' | 'medium' | 'large';
 
-export default function Button({
+type ButtonProps = ComponentProps<'button'> & {
+   variant?: ButtonVariant;
+   size?: ButtonSize;
+};
+
+export const Button = ({
    children,
    className,
    type = 'button',
+   variant = 'primary',
+   size = 'medium',
+   disabled = false,
    ...buttonProps
-}: ButtonProps) {
+}: ButtonProps) => {
+   const isClose = variant === 'close';
+
+   const buttonClasses = ['button', `button--${variant}`, `button--${size}`, className]
+      .filter(Boolean)
+      .join(' ');
+
    return (
-      <div className="input-field-wrapper">
-         <button type={type} className={`button cursor-pointer text-sm font-medium leading-[20px] ${className}`} {...buttonProps}>
-            {children}
-         </button>
-      </div>
+      <button
+         {...buttonProps}
+         type={type}
+         className={`${buttonClasses} cursor-pointer`}
+         disabled={disabled}
+         aria-label={isClose ? 'Закрыть' : undefined}
+      >
+         {isClose ? (
+            <svg
+               width="20"
+               height="20"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               strokeWidth="2"
+               strokeLinecap="round"
+               aria-hidden="true"
+            >
+               <path d="M18 6 6 18" />
+               <path d="m6 6 12 12" />
+            </svg>
+         ) : (
+            children
+         )}
+      </button>
    );
-}
+};
