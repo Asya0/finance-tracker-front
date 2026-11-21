@@ -28,7 +28,7 @@ type CredentialsFormProps = {
    onSubmit: (email: string, password: string) => void;
    onSwitch: () => void;
 };
-export default function CredentialsForm({
+export const CredentialsForm = ({
    title,
    description,
    buttonText,
@@ -36,7 +36,7 @@ export default function CredentialsForm({
    actionText,
    onSubmit,
    onSwitch,
-}: CredentialsFormProps) {
+}: CredentialsFormProps) => {
    type CredentialsFormData = z.infer<typeof credentialsSchema>;
 
    const {
@@ -87,7 +87,12 @@ export default function CredentialsForm({
                   )}
                </div>
 
-               <Button type="submit" variant='primary' disabled={isSubmitting} className="mt-2 w-full">
+               <Button
+                  type="submit"
+                  variant="primary"
+                  disabled={isSubmitting}
+                  className="mt-2 w-full"
+               >
                   {buttonText}
                </Button>
 
@@ -107,4 +112,4 @@ export default function CredentialsForm({
          </div>
       </>
    );
-}
+};

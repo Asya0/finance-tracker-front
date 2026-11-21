@@ -9,7 +9,7 @@ type ButtonProps = ComponentProps<'button'> & {
    size?: ButtonSize;
 };
 
-export default function Button({
+export const Button = ({
    children,
    className,
    type = 'button',
@@ -17,7 +17,7 @@ export default function Button({
    size = 'medium',
    disabled = false,
    ...buttonProps
-}: ButtonProps) {
+}: ButtonProps) => {
    const isClose = variant === 'close';
 
    const buttonClasses = ['button', `button--${variant}`, `button--${size}`, className]
@@ -51,4 +51,4 @@ export default function Button({
          )}
       </button>
    );
-}
+};

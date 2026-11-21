@@ -2,7 +2,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
    const [isModalOpened, setIsModalOpened] = useState(false);
    const { isAuthenticated, openModal, activeModal } = useAuth();
 
@@ -23,4 +23,3 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
    return null;
 };
-export default ProtectedRoute;

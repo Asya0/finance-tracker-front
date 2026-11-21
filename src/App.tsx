@@ -9,7 +9,7 @@ import RegisterModal from './components/ui/modals/RegisterModal';
 import Profile from './pages/Profile';
 import { Toaster } from 'sonner';
 
-function AppContent() {
+const AppContent = () => {
    const { activeModal, closeModal } = useAuth();
    return (
       <>
@@ -37,18 +37,18 @@ function AppContent() {
             </Route>
          </Routes>
 
-                  <Toaster position='top-right' richColors/>
+         <Toaster position="top-right" richColors />
 
          <LoginModal isOpen={activeModal === 'login'} onClose={closeModal} />
          <RegisterModal isOpen={activeModal === 'register'} onClose={closeModal} />
       </>
    );
-}
+};
 
-export default function App() {
+export const App = () => {
    return (
       <AuthProvider>
          <AppContent />
       </AuthProvider>
    );
-}
+};

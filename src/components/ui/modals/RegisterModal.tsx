@@ -1,8 +1,8 @@
-import CredentialsForm from '@/components/domain/credentials-form';
+import { CredentialsForm } from '@/components/domain/credentials-form';
 import { Modal } from './Modal';
 import { useAuth } from '@/contexts/AuthContext';
 
-function RegisterModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+export const RegisterModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
    const { registration, openModal } = useAuth();
 
    const handleSubmit = async (email: string, password: string) => {
@@ -23,9 +23,10 @@ function RegisterModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
             question="Уже есть аккаунта?"
             actionText="Войти"
             onSubmit={handleSubmit}
-            onSwitch={() => {openModal('login')}}
+            onSwitch={() => {
+               openModal('login');
+            }}
          />
       </Modal>
    );
-}
-export default RegisterModal;
+};

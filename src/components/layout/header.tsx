@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom';
-import Button from '../ui/button/button';
+import { Button } from '../ui/button/button';
 import { useAuth } from '@/contexts/AuthContext';
 import './header.css';
 
@@ -9,7 +9,7 @@ const NAV_ITEMS = [
    { path: '/profile', label: 'Профиль' },
 ];
 
-export function Header() {
+export const Header = () => {
    const { openModal, isAuthenticated, user, logout } = useAuth();
 
    return (
@@ -54,4 +54,4 @@ export function Header() {
          </main>
       </div>
    );
-}
+};

@@ -1,7 +1,7 @@
-import CredentialsForm  from '@/components/domain/credentials-form';
 import { registration } from '@/api/auth';
+import { CredentialsForm } from '@/components/domain/credentials-form';
 
-export default function RegisterPage() {
+export const RegisterPage = () => {
    const onSubmit = (email: string, password: string) => {
       registration(email, password);
    };
@@ -11,8 +11,11 @@ export default function RegisterPage() {
             title="Регистрация"
             description="Введите ваш email для доступа к Finance Tracker"
             buttonText="Зарегистрироваться"
+            question=""
+            actionText=""
+            onSwitch={() => {}}
             onSubmit={onSubmit}
          />
       </div>
    );
-}
+};
