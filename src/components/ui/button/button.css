@@ -83,7 +83,6 @@
 
 .button--close:hover:not(:disabled) {
    border-color: transparent;
-   /* color: var(--color-neutral-100); */
    background-color: var(--color-neutral-100);
 }
 
